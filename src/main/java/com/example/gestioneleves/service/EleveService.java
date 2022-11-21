@@ -1,63 +1,63 @@
-package ecole.gestionClasses.service;
-import ecole.gestionClasses.exception.HandlerException;
-import ecole.gestionClasses.model.Classe;
-import ecole.gestionClasses.repository.ClasseRepository;
+package com.example.gestioneleves.service;
+
+import com.example.gestioneleves.exception.HandlerException;
+import com.example.gestioneleves.model.Eleve;
+import com.example.gestioneleves.repository.EleveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.List;
 
 
 @Service
-public class ClasseService {
+public class EleveService {
 
 
     /**
      * Attributs :
      */
-    private final ClasseRepository classeRepository;
+    private final EleveRepository eleveRepository;
 
 
     /**
      * Constructeur :
      */
     @Autowired
-    public ClasseService(ClasseRepository classeRepository) {
-        this.classeRepository = classeRepository;
+    public EleveService(EleveRepository eleveRepository) {
+        this.eleveRepository= eleveRepository;
     }
 
 
     /**
      * Méthodes :
      */
-    public List<Classe> findAllClasses() {
-        return classeRepository.findAll();
+    public List<Eleve> findAllEleves() {
+        return eleveRepository.findAll();
     }
 
-    public Classe findClasseById(Long id)
+    public Eleve findEleveById(Long id)
     {
-        return classeRepository.findClasseById(id)
-                .orElseThrow(()-> new HandlerException("Classe by id"+ id +"was not found."));
+        return eleveRepository.findEleveById(id)
+                .orElseThrow(()-> new HandlerException("Eleve by id"+ id +"was not found."));
     }
 
-    public Classe addClasse(Classe classe)
+    public Eleve addEleve(Eleve eleve)
     {
-        return classeRepository.save(classe);
+        return eleveRepository.save(eleve);
     }
 
-    public Classe updateClasse(Classe classe)
+    public Eleve updateEleve(Eleve eleve)
     {
-        System.out.println("Service - classe à modifier:");
-        System.out.println(classe.getNom());
-        System.out.println(classe.getId());
-        return classeRepository.save(classe);
+        System.out.println(eleve.getNom());
+        System.out.println(eleve.getPrenom());
+        System.out.println(eleve.getEmail());
+        return eleveRepository.save(eleve);
     }
 
     @Transactional
-    public void deleteClasse(Long id)
+    public void deleteEleve(Long id)
     {
-        classeRepository.deleteClasseById(id);
+        eleveRepository.deleteEleveById(id);
     }
 
 
